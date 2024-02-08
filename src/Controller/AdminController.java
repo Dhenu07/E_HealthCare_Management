@@ -20,10 +20,21 @@ public class AdminController {
     }
 
     public List<String> getAllPatients() {
-        return adminModel.getAllDoctors();
+        return adminModel.getAllPatients();
     }
 
     public void deleteDoctor(int id) {
         adminModel.deleteDoctor(id);
+    }
+
+    public List<String> getAllAppointments() {
+        return adminModel.getAllAppointments();
+    }
+
+    public List<String> getAllFeedbacks() {
+        return adminModel.getAllFeedbacks();
+    }
+    public List<String> getAllReports(){
+        return adminModel.getAllReports();
     }
 }

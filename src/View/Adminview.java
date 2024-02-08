@@ -1,15 +1,16 @@
 package View;
-
 import java.util.List;
 import java.util.Scanner;
 import Controller.AdminController;
 
 public class Adminview {
     public static void viewAdmin() throws InterruptedException {
+        @SuppressWarnings("resource")
         Scanner sc = new Scanner(System.in);
         System.out.println("*****************Welcome to Admins portal***********************");
         String un;
         String pd;
+        Doctor d=null;
         AdminController control = new AdminController();
         System.out.print("USERNAME-->");
         un = sc.next();
@@ -57,12 +58,12 @@ public class Adminview {
                     case 2: {
                         List<String> patients = control.getAllPatients();
                         if (!patients.isEmpty()) {
-                            System.out.println("List of Doctors :");
+                            System.out.println("List of Patients :");
                             for (String doctor : patients) {
                                 System.out.println(doctor);
                             }
                         } else {
-                            System.out.println("No doctors found.");
+                            System.out.println("No Patients found.");
                         }
                         break;
                     }
@@ -73,6 +74,8 @@ public class Adminview {
                         String password = sc.next();
                         int id = control.addDoctor(email, password);
                         System.out.println("New doctor ID generated: " + id);
+                        d=new Doctor();
+                        d.DoctorRegistration(id);
                         break;
                     }
                     case 4: {
@@ -81,6 +84,48 @@ public class Adminview {
                         control.deleteDoctor(id);
                         break;
                     }
+                    case 5:{
+                        List<String> Appo = control.getAllAppointments();
+                        if (!Appo.isEmpty()) {
+                            System.out.println("List of Appointments :");
+                            for (String appo : Appo) {
+                                System.out.println(appo);
+                            }
+                        } else {
+                            System.out.println("No Appointments found.");
+                        }
+                        break;
+                    }
+                    case 6:{
+                        List<String> feed = control.getAllFeedbacks();
+                        if (!feed.isEmpty()) {
+                            System.out.println("List of Feedbacks :");
+                            for (String fee : feed) {
+                                System.out.println(fee);
+                            }
+                        } else {
+                            System.out.println("No Feedbacks found.");
+                        }
+                        break;
+                    }
+                    case 7:{
+                        List<String> reports = control.getAllReports();
+                        if (!reports.isEmpty()) {
+                            System.out.println("List of Reports :");
+                            for (String repo : reports) {
+                                System.out.println(repo);
+                            }
+                        } else {
+                            System.out.println("No Reports found.");
+                        }
+                        break;
+                    }
+                    case 8:
+		    				{
+                                System.out.println("Exiting...");
+                                Mainview.main(null);
+                                break;
+		    				}
                     default: {
                         System.out.println("Please Choose An Appropriate Option!!!");
                     }

@@ -5,6 +5,7 @@ public class Mainview {
     public static void main(String[] args) throws InterruptedException {
      System.out.println("\n\t******************************E-HealthCare-Management-Sytem***********************************\n");
 		boolean check = false;
+		@SuppressWarnings("resource")
 		Scanner sc=new Scanner(System.in);
 		while(true)
 		{
@@ -23,6 +24,10 @@ public class Mainview {
 		    case 1:  // Admins portal
 		    {
                      Adminview.viewAdmin(); 
+            }
+		    case 3:  // Admins portal
+		    {
+                     Doctorview.viewDoctor(); 
             }
 		if(check)
 			break;
