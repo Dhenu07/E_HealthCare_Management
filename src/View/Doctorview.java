@@ -7,11 +7,10 @@ import Controller.DoctorController;
 public class Doctorview {
     public static void viewDoctor() throws InterruptedException {
         boolean checkDoctor = false;
+        @SuppressWarnings("resource")
         Scanner sc = new Scanner(System.in);
         System.out.println("***************Welcome to Doctors portal******************");
-        int flag = 0;
         DoctorController doctor = new DoctorController();
-        Doctor d=null;
         int id;
         String pd;
         System.out.print("DOCTOR - ID : ");
@@ -34,13 +33,28 @@ public class Doctorview {
                     {
                         case 1:
                         {
-                           
-                            break;
+                           List<String> profile = doctor.getProfile(id);
+                           if (!profile.isEmpty()) {
+                            System.out.println("Doctor Profile:");
+                            for (String pro : profile) {
+                                System.out.println(pro);
+                            }
+                        } else {
+                            System.out.println("No doctor profile found.");
+                        }
+                        break;
                         }
                         case 2:
-                        {
-                            // d=new Doctor();
-                            // d.viewAppointment(id);
+                        { 
+                            List<String> appo = doctor.getAppo(id);
+                           if (!appo.isEmpty()) {
+                            System.out.println("Appointments:");
+                            for (String aro : appo) {
+                                System.out.println(aro);
+                            }
+                        } else {
+                            System.out.println("No Appointments found.");
+                        }
                             break;
                         }
                         case 3:

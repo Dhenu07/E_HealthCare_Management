@@ -26,7 +26,6 @@ public class AdminController {
     public void deleteDoctor(int id) {
         adminModel.deleteDoctor(id);
     }
-
     public List<String> getAllAppointments() {
         return adminModel.getAllAppointments();
     }
