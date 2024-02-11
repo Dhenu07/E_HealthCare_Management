@@ -1,8 +1,4 @@
 package View;
-
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.List;
 import java.util.Scanner;
 

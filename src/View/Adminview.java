@@ -16,7 +16,7 @@ public class Adminview {
         un = sc.next();
         System.out.print("Password-->");
         pd = sc.next();
-        if ((un.compareTo("abc") == 0 && pd.compareTo("1234") == 0)
+        if ((un.compareTo("Dhenu") == 0 && pd.compareTo("1234") == 0)
                 || (un.compareTo("xyz") == 0 && pd.compareTo("1234") == 0)) {
             while (true) {
                 System.out.println(
