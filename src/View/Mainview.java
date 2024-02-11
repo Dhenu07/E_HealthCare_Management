@@ -21,16 +21,32 @@ public class Mainview {
         System.out.println();
 		switch (choice)
 		{
-		    case 1:  // Admins portal
+		    case 1:
 		    {
                      Adminview.viewAdmin(); 
+					 break;
             }
-		    case 3:  // Admins portal
+			case 2:
+			{
+                      Patientview.viewPatient();
+					  break;
+			}
+		    case 3:
 		    {
                      Doctorview.viewDoctor(); 
+					 break;
             }
-		if(check)
-			break;
+			case 4:
+			{
+			         Patientview.newPatient();	
+					 break;     
+			}
+			case 5:
+			{
+				System.out.println("Exiting...");
+                System.exit(5);
+                break;
+			}
 		}
 	}
     }}
