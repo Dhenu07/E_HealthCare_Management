@@ -22,5 +22,24 @@ public class DoctorController{
    public List<String> getAppo(int id){
        return doctorModel.getAppoint(id);
    }
+
+   public boolean Appointment_checker(int appid,int id){
+      return doctorModel.cheackAppointment_checker(appid,id);
+   }
+    
+   public  int GetPatientID(int apid){
+    return doctorModel.GetPatientID(apid);
+   }
+
+   public int AutoReportID(){
+    return doctorModel.AutoReportID();
+   }
+
+   public boolean GenerateReport(int RepId,int appid,int pid,int docid,String MedicinePrescribed,String DoctorsComment){
+    return doctorModel.GenerateReport(RepId,appid,pid,docid,MedicinePrescribed,DoctorsComment);
+   }
+   public List<String> ShowReport(int RepId){
+    return doctorModel.ReportShowReport(RepId);
+   }
 }
 
