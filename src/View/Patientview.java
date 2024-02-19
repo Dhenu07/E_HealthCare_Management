@@ -47,10 +47,10 @@ public class Patientview {
                 int ch = sc.nextInt();
                 switch (ch) {
                     case 1: {
-                        List<String> profile = pc.ShowPatientDetails(id);
+                        List<DAO.Patient> profile = pc.ShowPatientDetails(id);
                         if (!profile.isEmpty()) {
                             System.out.println("Patient Profile:");
-                            for (String pro : profile) {
+                            for (DAO.Patient pro : profile) {
                                 System.out.println(pro);
                             }
                         } else {
@@ -59,10 +59,10 @@ public class Patientview {
                         break;
                     }
                     case 2: {
-                        List<String> doctors = pc.getAllDoctors();
+                        List<DAO.Doctor> doctors = pc.getAllDoctors();
                         if (!doctors.isEmpty()) {
                             System.out.println("List of Doctors :");
-                            for (String doctor : doctors) {
+                            for (DAO.Doctor doctor : doctors) {
                                 System.out.println(doctor);
                             }
                         } else {
@@ -73,13 +73,12 @@ public class Patientview {
                     case 3: {
                         p.BookAppointment(id);
                         break;
-
                     }
                     case 4: {
-                        List<String> prepo = pc.getAllReports(id);
+                        List<DAO.Reports> prepo = pc.getAllReports(id);
                         if (!prepo.isEmpty()) {
                             System.out.println("Reports :");
-                            for (String po : prepo) {
+                            for (DAO.Reports po : prepo) {
                                 System.out.println(po);
                             }
                         } else {

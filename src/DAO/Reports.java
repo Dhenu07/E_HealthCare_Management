@@ -25,6 +25,9 @@ public class Reports {
         setDname(dname);
         setPname(pname);
     }
+    public Reports(int patientId ,String medicationPre){
+        setPatientId(patientId);
+    }
     public void setReportId(int reportId) {
         this.reportId = reportId;
     }

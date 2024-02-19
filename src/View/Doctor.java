@@ -69,7 +69,12 @@ public class Doctor extends Person
 			}
 				
 		}
-    	 doctor.addDoctor(docid,First_Name,Last_Name,Gender,CN,age,Entry_Charge,Qualification,Doctor_Type,Email_Address);
+    	 if(doctor.addDoctor(docid,First_Name,Last_Name,Gender,CN,age,Entry_Charge,Qualification,Doctor_Type,Email_Address)){
+			System.out.println("Doctor Added Successully");
+		 }
+		 else{
+			System.out.println("Doctor Not Added Successully");
+		 }
 	}
 }
 

@@ -139,7 +139,7 @@ public class Appointment {
 
     public void ConfirmAppointment(){
         payment_status = billpayment(docFees);
-        boolean confirm=pc.CheckAppointment(Apid,Problem,pid,Doctor_Name,Doctor_id,Doctor_Type,Doctor_Qualification,docFees,payment_status,Appointment_Status);
+        boolean confirm=pc.CheckAppointment(Apid,Problem,pid,Doctor_id,payment_status,Appointment_Status);
         if(confirm){
             System.out.println("ThankYou For visiting us your Appointment Has Been confirmed!!!");
         }

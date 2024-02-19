@@ -4,6 +4,12 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+
+import DAO.Appointment;
+import DAO.Doctor;
+import DAO.Patient;
+import DAO.Reports;
+import DAO.User;
 // import Controller.PatientController;
 public class PatientModel {
     public int AutopatientId() {
@@ -67,25 +73,19 @@ public class PatientModel {
         return false;
     }
 
-    public List<String> getProfile(int id) {
-        List<String> profile = new ArrayList<>();
+    public List<Patient> getProfile(int id) {
+        List<Patient> profile = new ArrayList<>();
         try {
             Connection con = Dbconnection.getConnection();
             Statement st = con.createStatement();
+            Patient pa=new Patient(id);
             ResultSet rs = st.executeQuery(
                     "Select PatientID,First_Name,Last_Name,Age,Gender,BloodGroup,EmailId,ContactNumber,Address from patients where PatientId="
-                            + id);
+                            + pa.getPatientID());
             while (rs.next()) {
-                String pro = "Patient Id: " + rs.getInt("PatientID") + ", First Name: "
-                        + rs.getString("First_Name")
-                        + ", Last Name: " + rs.getString("Last_Name") + ", Age: " + rs.getString("Age")
-                        + ", Gender: " + rs.getString("Gender")
-                        + ", BloodGroup: "
-                        + rs.getString("BloodGroup") + ",Email Id: "
-                        + rs.getString("EmailId") + ",Phone Number: "
-                        + rs.getString("ContactNumber") + ",Address: "
-                        + rs.getString("Address");
-                profile.add(pro);
+                Patient pa1;
+                pa1=new Patient(pa.getPatientID(),rs.getString("First_Name") , rs.getString("Last_Name"),rs.getString("Gender"), rs.getString("ContactNumber"),  rs.getInt("Age"), rs.getString("BloodGroup") , rs.getString("Address"), rs.getString("EmailId"));
+                profile.add(pa1);
             }
             con.close();
         } catch (Exception e) {
@@ -94,20 +94,16 @@ public class PatientModel {
         return profile;
     }
 
-    public List<String> getAllDoctors() {
-        List<String> doc = new ArrayList<>();
+    public List<Doctor> getAllDoctors() {
+        List<Doctor> doc = new ArrayList<>();
         try {
             Connection con = Dbconnection.getConnection();
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery(
                     "Select First_Name,Age,Doctor_Type,Qualification from doctors");
             while (rs.next()) {
-                String d = "First Name: "
-                        + rs.getString("First_Name")
-                        + ", Department: " + rs.getString("Doctor_Type")
-                        + ", Qulification: "
-                        + rs.getString("Qualification");
-                doc.add(d);
+                Doctor dc=new Doctor(rs.getString("First_Name"), rs.getInt("Age"), rs.getString("Doctor_Type"), rs.getString("Qualification"));
+                doc.add(dc);
             }
             con.close();
         } catch (Exception e) {
@@ -117,20 +113,20 @@ public class PatientModel {
     }
 
     public int AutoAppo() {
-        int appID = 0;
         try {
             Connection con = Dbconnection.getConnection();
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery("Select MAX(AppointmentID) from Appointments");
+            User u=new User(rs.getInt(1));
             rs.next();
-            appID = rs.getInt(1);
             if (rs.wasNull()) {
-                return 1;
+                u.setUserId(1);
+                return u.getUserId();
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        return appID + 1;
+        return u.getUserId() + 1;
     }
 
     public List<String> getDoctorType(String Doctype) {
@@ -166,8 +162,8 @@ public class PatientModel {
             Statement st = con.createStatement();
             ResultSet name = st.executeQuery("Select First_Name from doctors where DoctorID=" + did);
             if (name.next()) {
-                String result = name.getString("First_Name");
-                return result;
+                Doctor d=new Doctor(name.getString("First_Name")) ;
+                return d.getFirstName();
             } else {
                 return "Sorry no Doctor Name";
             }
@@ -208,15 +204,13 @@ public class PatientModel {
         }
     }
 
-    public boolean CheckAppointment(int Apid, String Problem, int pid, String Doctor_Name, int Doctor_id,
-            String Doctor_Type, String Doctor_Qualification, int docFees, String payment_status,
+    public boolean CheckAppointment(int Apid, String Problem, int pid,int Doctor_id,String payment_status,
             String Appointment_Status) {
         try {
             Connection con = Dbconnection.getConnection();
             Statement st = con.createStatement();
-            st.executeUpdate("INSERT INTO Appointments VALUES ('" + Apid + "','" + Problem + "','" + pid + "','"
-                    + Doctor_Name + "','" + Doctor_id + "','" + Doctor_Type + "','" + Doctor_Qualification + "','"
-                    + docFees + "','" + payment_status + "','" + Appointment_Status + "')");
+            Appointment a=new Appointment(pid, Problem, pid, Doctor_id, payment_status, Appointment_Status);
+            st.executeUpdate("INSERT INTO Appointments VALUES ('" + a.getAppointmentID() + "','" + a.getProblem() + "','" + a.getPatientId() + "','" + a.getDoctorID() +"','"+ a.getPaymentStatus() + "','" + a.getAppointmentStatus() + "')");
             return true;
         } catch (Exception e) {
             System.out.println("EXCEPTION OCCURS" + e.getMessage());
@@ -224,23 +218,17 @@ public class PatientModel {
         }
     }
 
-    public List<String> getAllReports(int id) {
-        List<String> doc = new ArrayList<>();
+    public List<Reports> getAllReports(int id) {
+        List<Reports> doc = new ArrayList<>();
         try {
             Connection con = Dbconnection.getConnection();
             Statement st = con.createStatement();
+            Reports e=new Reports(id,null);
             ResultSet rs = st.executeQuery(
-                    "select * from Reports where PatientID = " + id);
+                    "select * from Reports where PatientID = " + e.getPatientId());
             while (rs.next()) {
-                String d = "ReportID: "
-                        + rs.getString("ReportID")
-                        + ", Appointment_ID: " + rs.getString("appointmentID")
-                        + ", PatientId: "
-                        + rs.getString("patientID") + ", Doctor_Id : "
-                        + rs.getString("DoctorID") + ", MedicinePrescribed : "
-                        + rs.getString("MedicinePrescribed") + ", Doctor's Message : "
-                        + rs.getString("DoctorComment");
-                doc.add(d);
+                Reports re=new Reports(rs.getInt("ReportID"), rs.getInt("appointmentID"), e.getPatientId(), rs.getInt("DoctorID"), rs.getString("MedicinePrescribed"), rs.getString("DoctorComment"));
+                doc.add(re);
             }
             con.close();
         } catch (Exception e) {

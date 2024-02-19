@@ -17,8 +17,8 @@ public class DoctorController{
         return doctorModel.checkDoctor(id, password);
     }
 
-    public void addDoctor(int docid,String fn,String ln,String G,String cn,int age,int ec,String Q,String dt,String ed){
-        doctorModel.doctor_Registration(docid,fn,ln,G,cn,age,ec,Q,dt,ed);
+    public boolean addDoctor(int docid,String fn,String ln,String G,String cn,int age,int ec,String Q,String dt,String ed){
+        return doctorModel.doctor_Registration(docid,fn,ln,G,cn,age,ec,Q,dt,ed);
     }
    public List<Doctor> getProfile(int id){
        return doctorModel.getProfile(id);
@@ -31,7 +31,7 @@ public class DoctorController{
       return doctorModel.cheackAppointment_checker(appid,id);
    }
     
-   public Appointment GetPatientID(int apid){
+   public int GetPatientID(int apid){
     return doctorModel.GetPatientID(apid);
    }
 

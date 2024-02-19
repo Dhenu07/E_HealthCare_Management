@@ -24,6 +24,12 @@ public class Doctor {
         setDoctorType(doctor_type);
         setEmailId(email_id);
     }
+    public Doctor(String first_Name,int age,String doctor_type,String qualification){
+        setFirstName(first_Name);
+        setAge(age);
+        setDoctorType(doctor_type);
+        setQualification(qualification);
+    }
     public Doctor(String First_Name){
         setFirstName(First_Name);
     }

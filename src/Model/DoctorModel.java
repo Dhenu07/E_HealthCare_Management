@@ -31,16 +31,18 @@ public class DoctorModel {
 
 	}
 
-	public void doctor_Registration(int docid, String fn, String ln, String G, String cn, int age, int ec, String Q,
+	public boolean doctor_Registration(int docid, String fn, String ln, String G, String cn, int age, int ec, String Q,
 			String dt, String ed) {
 		try {
 			Connection con = Dbconnection.getConnection();
 			Statement st = con.createStatement();
-			st.executeUpdate("INSERT INTO Doctors VALUES ('" + docid + "','" + fn + "','" + ln + "','" + G + "','" + cn
-					+ "','" + age + "','" + ec + "','" + Q + "','" + dt + "','" + ed + "')");
-			System.out.println("Doctor Added Successully");
+			Doctor doo=new Doctor(docid, fn, ln, G, cn, age, age, Q, dt, ed);
+			st.executeUpdate("INSERT INTO Doctors VALUES ('" + doo.getDoctorId() + "','" + doo.getFirstName() + "','" + doo.getLastName() + "','" + doo.getGender() + "','" + doo.getContactNumber()
+					+ "','" + doo.getAge() + "','" + doo.getEntry() + "','" + doo.getQualification() + "','" + doo.getDoctorType() + "','" + doo.getEmailId() + "')");
+					return true;
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
+			return false;
 		}
 	}
 
@@ -101,20 +103,21 @@ public class DoctorModel {
 		return false;
 	}
 
-	public Appointment GetPatientID(int apid) {
+	public int  GetPatientID(int apid) {
 		try {
+			int i=0;
 			Connection con = Dbconnection.getConnection();
 			Statement st = con.createStatement();
 			Appointment a=new Appointment(apid,0);
 			ResultSet rs = st.executeQuery("select * from Appointments where AppointmentID=" + a.getAppointmentID());
 			while (rs.next()) {
-				a.setPatientId(rs.getInt(3));;
+				i=(rs.getInt(3));
 			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return a.getPatientId();
+		return i;
 	}
 
 	public int AutoReportID() {
@@ -154,7 +157,8 @@ public class DoctorModel {
 		try {
 			Connection con = Dbconnection.getConnection();
 			Statement st = con.createStatement();
-			st.executeUpdate("UPDATE Appointments SET Appointment_Status='Completed' WHERE AppointmentID=" + appid);
+			Appointment apo=new Appointment(appid,0);
+			st.executeUpdate("UPDATE Appointments SET Appointment_Status='Completed' WHERE AppointmentID=" + apo.getAppointmentID());
 		} catch (Exception e) {
 			System.out.println("e.getMessage()");
 		}

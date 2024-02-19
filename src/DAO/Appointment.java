@@ -28,7 +28,14 @@ public class Appointment {
     public Appointment(int doctorID){
         setDoctorID(doctorID);
     }
-
+    public Appointment(int appointmentID, String problem, int patientID, int doctor_id,String paymentStatus, String appointmentStatus){
+        setAppointmentID(appointmentID);
+        setAppointmentStatus(appointmentStatus);
+        setDoctorID(doctor_id);
+        setPatientId(patientID);
+        setPaymentStatus(paymentStatus);
+        setProblem(problem);
+    }
     public Appointment(int appointmentID,int patientID){
         setPatientId(patientID);
         setAppointmentID(appointmentID);

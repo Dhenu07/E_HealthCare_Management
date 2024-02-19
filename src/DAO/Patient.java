@@ -23,6 +23,9 @@ public class Patient {
         setAddress(address);
         setEmail_Id(email_id);
     }
+    public Patient(int patientID){
+        setPatientID(patientID);
+    }
     public Patient(String First_Name){
       setFirst_Name(First_Name);
     }
