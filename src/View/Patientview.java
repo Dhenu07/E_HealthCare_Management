@@ -119,12 +119,32 @@ public class Patientview {
                         }
                         break;
                     }
-                    // case 7:
-                    // {
-                    // p.Givefeedback(id) ;
-                    // break;
-
-                    // }
+                    case 7:
+                    {
+                        System.out.println("*********Please Fill The Following Feedback Form*********");
+                        int pid=id;
+                        System.out.println("Patient Id:"+pid);
+                        System.out.println("Please Give points to our services out of 10 :");
+                        int points=sc.nextInt();
+                        System.out.println("Nature Of The Doctor");
+                        String Doc_Nature = sc.next();
+                        Doc_Nature +=sc.nextLine();
+                        System.out.println("Enter Your Address below");
+                        String Location = sc.next();
+                        Location +=sc.nextLine();
+                        System.out.println("Your Comment:");
+                        String YourComment = sc.next();
+                        YourComment +=sc.nextLine();
+                        if(pc.updateFeedback(pid,points, Doc_Nature, Location,YourComment)){
+                            System.out.println("Your Feedback has been updated");
+                            System.out.println("-->>Thank You For Visiting Us<<--");
+	    	                System.out.println("-->>Your Feedback Meant a lot to Us<<--");
+                        }
+                        else{
+                           System.out.println("Something went wrong");
+                        }
+                        break;
+                    }
                     case 8: {
                         System.out.println("Exiting...");
                         Mainview.main(null);

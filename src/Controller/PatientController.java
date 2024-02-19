@@ -57,4 +57,8 @@ public class PatientController {
     public List<String> viewAppo(int id,String appoo){
            return pm.viewAppo(id,appoo);
     }
+    public boolean updateFeedback(int id,int points,String  Doc_Nature, String Location,String YourComment){
+        return pm.updateFeedback(id,
+        points,Doc_Nature,Location,YourComment);
+    }
 }

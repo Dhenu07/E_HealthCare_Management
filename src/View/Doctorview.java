@@ -60,8 +60,15 @@
                             }
                             case 3:
                             {
-                            while(true)
-                            {
+                                List<String> appo = doctor.getAppo(id);
+                            if (!appo.isEmpty()) {
+                                System.out.println("Appointments:");
+                                for (String aro : appo) {
+                                    System.out.println(aro);
+                                }
+                            } else {
+                                System.out.println("No Appointments found.");
+                            }
                                 System.out.println("Enter Appointment_Id of the patient which you want to check!!");
                                 int appid=sc.nextInt();
                                 boolean f=doctor.Appointment_checker(appid,id);
@@ -78,8 +85,6 @@
                                     System.out.println("Enter 1 to leave!!!");
                                     if(sc.nextInt()==1)
                                         break;
-                                    
-                                }
                             }
                             }
                             case 4:

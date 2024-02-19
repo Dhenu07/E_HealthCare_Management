@@ -277,4 +277,16 @@ public class PatientModel {
         }
         return doc;
     }
+    public boolean updateFeedback(int id,int points,String  Doc_Nature, String Location,String YourComment){
+        try {
+			Connection con=Dbconnection.getConnection();
+			Statement st=con.createStatement();
+			st.executeUpdate("INSERT INTO feedback VALUES ('"+id+"','"+points+"','"+Doc_Nature+"','"+Location+"','"+YourComment+"')");
+			return true;
+		}catch(Exception e)
+		{
+			System.out.println(e.getMessage());
+		}
+        return false;
+    }
 }
