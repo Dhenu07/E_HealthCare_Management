@@ -26,10 +26,10 @@ public class Report {
             boolean o=doctor.GenerateReport(RepId,appid,pid,docid,MedicinePrescribed,DoctorsComment);
             if(o){
                System.out.println("Report Generated Succesfully!!!");
-               List<String> report = doctor.ShowReport(RepId);
+               List<DAO.Reports> report = doctor.ShowReport(RepId);
                             if (!report.isEmpty()) {
                                 System.out.println("Report:");
-                                for (String re : report) {
+                                for (DAO.Reports re : report) {
                                     System.out.println(re);
                                 }
                             } else {

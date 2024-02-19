@@ -23,10 +23,10 @@
                     {
                         System.out.print("\t**********************************************************************************************\n");
                         System.out.print("\t*                                                                                            *\n");
-                        System.out.print("\t*                  1.view_DOCTOR_Profile                                                     *\n");
-                        System.out.print("\t*                  2.viewAppointments                                                        *\n");
-                        System.out.print("\t*                  3.DiagonistPatient                                                        *\n");
-                        System.out.print("\t*                  4.LOGOUT                                                                  *\n");
+                        System.out.print("\t*                  1.View Doctor Profile                                                     *\n");
+                        System.out.print("\t*                  2.View Appointments                                                        *\n");
+                        System.out.print("\t*                  3.Diagonist Patient                                                        *\n");
+                        System.out.print("\t*                  4.Logout                                                                  *\n");
                         System.out.print("\t*                                                                                            *\n");
                         System.out.print("\t**********************************************************************************************\n");	
                         int ch=sc.nextInt();
@@ -34,10 +34,10 @@
                         {
                             case 1:
                             {
-                            List<String> profile = doctor.getProfile(id);
+                            List<DAO.Doctor> profile = doctor.getProfile(id);
                             if (!profile.isEmpty()) {
                                 System.out.println("Doctor Profile:");
-                                for (String pro : profile) {
+                                for (DAO.Doctor pro : profile) {
                                     System.out.println(pro);
                                 }
                             } else {
@@ -47,10 +47,10 @@
                             }
                             case 2:
                             { 
-                            List<String> appo = doctor.getAppo(id);
+                            List<DAO.Appointment> appo = doctor.getAppo(id);
                             if (!appo.isEmpty()) {
                                 System.out.println("Appointments:");
-                                for (String aro : appo) {
+                                for (DAO.Appointment aro : appo) {
                                     System.out.println(aro);
                                 }
                             } else {
@@ -60,10 +60,10 @@
                             }
                             case 3:
                             {
-                                List<String> appo = doctor.getAppo(id);
+                                List<DAO.Appointment> appo = doctor.getAppo(id);
                             if (!appo.isEmpty()) {
                                 System.out.println("Appointments:");
-                                for (String aro : appo) {
+                                for (DAO.Appointment aro : appo) {
                                     System.out.println(aro);
                                 }
                             } else {

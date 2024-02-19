@@ -6,6 +6,13 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import DAO.Appointment;
+import DAO.Doctor;
+import DAO.Feedback;
+import DAO.Patient;
+import DAO.Reports;
+import View.Report;
+
 public class AdminModel {
     public int addDoctor(String password) {
         int doctorId = generateDoctorId();
@@ -41,20 +48,18 @@ public class AdminModel {
         return docId;
     }
 
-    public List<String> getAllDoctors() {
-        List<String> doctorsList = new ArrayList<>();
+    public List<Doctor> getAllDoctors() {
+        List<Doctor> doctorsList = new ArrayList<>();
         try {
             Connection con = Dbconnection.getConnection();
             Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery("SELECT * FROM Doctors"); // Assuming Doctors table exists
+            ResultSet rs = st.executeQuery("SELECT * FROM Doctors");
             while (rs.next()) {
-                String doctorDetails = "ID: " + rs.getInt("DoctorID") + ", First-Name: " + rs.getString("First_Name")
-                        + ", Last-Name: " + rs.getString("Last_Name") + ", Gender: " + rs.getString("Gender")
-                        + ", Age: " + rs.getString("Age")
-                        + ", PhoneNumber: " + rs.getString("ContactNumber") + ", DoctorFees: "
-                        + rs.getString("Entry_Charge") + ", Qualification: " + rs.getString("Qualification")
-                        + ", DoctorType: " + rs.getString("Doctor_Type") + ", EmailId: " + rs.getString("Email_Id");
-                doctorsList.add(doctorDetails);
+                Doctor doc = new Doctor(rs.getInt("DoctorID"), rs.getString("First_Name"), rs.getString("Last_Name"),
+                        rs.getString("Gender"), rs.getString("ContactNumber"), rs.getInt("Age"),
+                        rs.getInt("Entry_Charge"), rs.getString("Qualification"), rs.getString("Doctor_Type"),
+                        rs.getString("Email_Id"));
+                doctorsList.add(doc);
             }
             con.close();
         } catch (Exception e) {
@@ -63,21 +68,17 @@ public class AdminModel {
         return doctorsList;
     }
 
-    public List<String> getAllPatients() {
-        List<String> PatientList = new ArrayList<>();
+    public List<Patient> getAllPatients() {
+        List<Patient> PatientList = new ArrayList<>();
         try {
             Connection con = Dbconnection.getConnection();
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery("SELECT * FROM patients"); // Assuming Doctors table exists
             while (rs.next()) {
-                String PatientDetails = "Patient ID: " + rs.getInt("PatientID") + ", First-Name: "
-                        + rs.getString("First_Name")
-                        + ", Last-Name: " + rs.getString("Last_Name") + ", Gender: " + rs.getString("Gender")
-                        + ", PhoneNumber: " + rs.getString("ContactNumber") + ", BloodGroup: "
-                        + rs.getString("BloodGroup")
-                        + ", Age: " + rs.getString("Age") + ", EmailId: " + rs.getString("EmailId") + ", Address: "
-                        + rs.getString("Address");
-                PatientList.add(PatientDetails);
+                Patient p = new Patient(rs.getInt("PatientID"), rs.getString("First_Name"), rs.getString("Last_Name"),
+                        rs.getString("Gender"), rs.getString("ContactNumber"), rs.getInt("Age"),
+                        rs.getString("BloodGroup"), rs.getString("Address"), rs.getString("EmailId"));
+                PatientList.add(p);
             }
             con.close();
         } catch (Exception e) {
@@ -86,34 +87,32 @@ public class AdminModel {
         return PatientList;
     }
 
-    public void deleteDoctor(int id) {
+    public boolean deleteDoctor(int id) {
         try {
             Connection con = Dbconnection.getConnection();
             Statement st = con.createStatement();
             st.executeUpdate("DELETE FROM Doctors WHERE DoctorID = " + id);
-            System.out.println("Doctor Deleted successfully!");
             con.close();
+            return true;
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
+            return false;
         }
     }
 
-    public List<String> getAllAppointments() {
-        List<String> AppoList = new ArrayList<>();
+    public List<Appointment> getAllAppointments() {
+        List<Appointment> AppoList = new ArrayList<>();
         try {
             Connection con = Dbconnection.getConnection();
             Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery("SELECT * FROM appointments"); // Assuming Doctors table exists
+            ResultSet rs = st.executeQuery(
+                    "SELECT a.AppointmentID,a.Problem,a.PatientId,a.DoctorId,b.First_Name,b.Doctor_Type,b.Qualification,b.Entry_Charge,a.PaymentStatus,a.Appointment_Status FROM appointments a,doctors b WHERE a.DoctorId = b.DoctorId;");
             while (rs.next()) {
-                String AppoDetails = "Appointment ID: " + rs.getInt("AppointmentID") + ", Problem: "
-                        + rs.getString("Problem")
-                        + ", Patient Id: " + rs.getInt("PatientId") + ", Doctor Name: " + rs.getString("DoctorName")
-                        + ", Doctor Id: " + rs.getInt("DoctorId") + ", Doctor Type: "
-                        + rs.getString("DoctorType")
-                        + ", Qualification: " + rs.getString("Qualification") + ", DoctorFees: "
-                        + rs.getInt("DoctorFees") + ", PaymentStatus: "
-                        + rs.getString("PaymentStatus") + "Appointment Status: " + rs.getString("Appointment_Status");
-                AppoList.add(AppoDetails);
+                Appointment a = new Appointment(rs.getInt("AppointmentID"), rs.getString("Problem"),
+                        rs.getInt("PatientId"), rs.getInt("DoctorId"), rs.getString("First_Name"),
+                        rs.getString("Qualification"), rs.getInt("Entry_Charge"), rs.getString("Doctor_Type"),
+                        rs.getString("PaymentStatus"), rs.getString("Appointment_Status"));
+                AppoList.add(a);
             }
             con.close();
         } catch (Exception e) {
@@ -122,19 +121,15 @@ public class AdminModel {
         return AppoList;
     }
 
-    public List<String> getAllFeedbacks() {
-        List<String> FeedList = new ArrayList<>();
+    public List<Feedback> getAllFeedbacks() {
+        List<Feedback> FeedList = new ArrayList<>();
         try {
             Connection con = Dbconnection.getConnection();
             Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery("SELECT * FROM feedback"); // Assuming Doctors table exists
+            ResultSet rs = st.executeQuery("SELECT * FROM feedback");
             while (rs.next()) {
-                String FeeDetails = "Patient ID: " + rs.getInt("PatientID") + ", Points: "
-                        + rs.getInt("Points")
-                        + ", Docor Nature: " + rs.getString("Doc_Nature") + ", Location: " + rs.getString("Location")
-                        + ", Patient Comment: "
-                        + rs.getString("PatientComment");
-                FeedList.add(FeeDetails);
+                Feedback fee = new Feedback(rs.getInt("PatientID"),rs.getInt("Points"),rs.getString("Doc_Nature"),rs.getString("Location"),rs.getString("PatientComment"));
+                FeedList.add(fee);
             }
             con.close();
         } catch (Exception e) {
@@ -143,20 +138,15 @@ public class AdminModel {
         return FeedList;
     }
 
-    public List<String> getAllReports() {
-        List<String> Reports = new ArrayList<>();
+    public List<Reports> getAllReports() {
+        List<Reports> Reports = new ArrayList<>();
         try {
             Connection con = Dbconnection.getConnection();
             Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery("SELECT * FROM reports"); // Assuming Doctors table exists
+            ResultSet rs = st.executeQuery("SELECT * FROM reports"); 
             while (rs.next()) {
-                String reports = "Report Id: " + rs.getInt("ReportID") + ", Appointment ID: "
-                        + rs.getInt("appointmentID")
-                        + ", Patient ID: " + rs.getInt("patientID") + ", Doctor ID: " + rs.getInt("DoctorID")
-                        + ", MedicinePrescribed: "
-                        + rs.getString("MedicinePrescribed") + ", Doctor Comment: "
-                        + rs.getString("DoctorComment");
-                Reports.add(reports);
+                Reports report = new Reports( rs.getInt("ReportID"),rs.getInt("appointmentID"), rs.getInt("patientID"),rs.getInt("DoctorID"),rs.getString("MedicinePrescribed"),rs.getString("DoctorComment"));
+                Reports.add(report);
             }
             con.close();
         } catch (Exception e) {

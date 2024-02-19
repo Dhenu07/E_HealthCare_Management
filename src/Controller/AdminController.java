@@ -2,6 +2,11 @@ package Controller;
 
 import java.util.List;
 
+import DAO.Appointment;
+import DAO.Doctor;
+import DAO.Feedback;
+import DAO.Patient;
+import DAO.Reports;
 import Model.AdminModel;
 
 public class AdminController {
@@ -15,25 +20,25 @@ public class AdminController {
         return adminModel.addDoctor(password);
     }
 
-    public List<String> getAllDoctors() {
+    public List<Doctor> getAllDoctors() {
         return adminModel.getAllDoctors();
     }
 
-    public List<String> getAllPatients() {
+    public List<Patient> getAllPatients() {
         return adminModel.getAllPatients();
     }
 
-    public void deleteDoctor(int id) {
-        adminModel.deleteDoctor(id);
+    public boolean deleteDoctor(int id) {
+        return adminModel.deleteDoctor(id);
     }
-    public List<String> getAllAppointments() {
+    public List<Appointment> getAllAppointments() {
         return adminModel.getAllAppointments();
     }
 
-    public List<String> getAllFeedbacks() {
+    public List<Feedback> getAllFeedbacks() {
         return adminModel.getAllFeedbacks();
     }
-    public List<String> getAllReports(){
+    public List<Reports> getAllReports(){
         return adminModel.getAllReports();
     }
 }

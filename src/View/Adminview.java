@@ -1,7 +1,9 @@
 package View;
+
 import java.util.List;
 import java.util.Scanner;
 import Controller.AdminController;
+import DAO.Feedback;
 
 public class Adminview {
     public static void viewAdmin() throws InterruptedException {
@@ -10,7 +12,7 @@ public class Adminview {
         System.out.println("*****************Welcome to Admins portal***********************");
         String un;
         String pd;
-        Doctor d=null;
+        Doctor d = null;
         AdminController control = new AdminController();
         System.out.print("USERNAME-->");
         un = sc.next();
@@ -44,10 +46,10 @@ public class Adminview {
                 System.out.println();
                 switch (ch) {
                     case 1: {
-                        List<String> doctors = control.getAllDoctors();
+                        List<DAO.Doctor> doctors = control.getAllDoctors();
                         if (!doctors.isEmpty()) {
                             System.out.println("List of Doctors :");
-                            for (String doctor : doctors) {
+                            for (DAO.Doctor doctor : doctors) {
                                 System.out.println(doctor);
                             }
                         } else {
@@ -56,11 +58,11 @@ public class Adminview {
                         break;
                     }
                     case 2: {
-                        List<String> patients = control.getAllPatients();
+                        List<DAO.Patient> patients = control.getAllPatients();
                         if (!patients.isEmpty()) {
                             System.out.println("List of Patients :");
-                            for (String doctor : patients) {
-                                System.out.println(doctor);
+                            for (DAO.Patient p: patients) {
+                                System.out.println(p);
                             }
                         } else {
                             System.out.println("No Patients found.");
@@ -74,21 +76,26 @@ public class Adminview {
                         String password = sc.next();
                         int id = control.addDoctor(email, password);
                         System.out.println("New doctor ID generated: " + id);
-                        d=new Doctor();
+                        d = new Doctor();
                         d.DoctorRegistration(id);
                         break;
                     }
                     case 4: {
                         System.out.println("Enter Doctor Id to Delete : ");
                         int id = sc.nextInt();
-                        control.deleteDoctor(id);
+                        if(control.deleteDoctor(id)){
+                            System.out.println("Doctor Deleted successfully!");
+                        }
+                        else{
+                            System.out.println("Some Error occurred");
+                        }
                         break;
                     }
-                    case 5:{
-                        List<String> Appo = control.getAllAppointments();
+                    case 5: {
+                        List<DAO.Appointment> Appo = control.getAllAppointments();
                         if (!Appo.isEmpty()) {
                             System.out.println("List of Appointments :");
-                            for (String appo : Appo) {
+                            for (DAO.Appointment appo : Appo) {
                                 System.out.println(appo);
                             }
                         } else {
@@ -96,11 +103,11 @@ public class Adminview {
                         }
                         break;
                     }
-                    case 6:{
-                        List<String> feed = control.getAllFeedbacks();
+                    case 6: {
+                        List<DAO.Feedback> feed = control.getAllFeedbacks();
                         if (!feed.isEmpty()) {
                             System.out.println("List of Feedbacks :");
-                            for (String fee : feed) {
+                            for (DAO.Feedback fee : feed) {
                                 System.out.println(fee);
                             }
                         } else {
@@ -108,11 +115,11 @@ public class Adminview {
                         }
                         break;
                     }
-                    case 7:{
-                        List<String> reports = control.getAllReports();
+                    case 7: {
+                        List<DAO.Reports> reports = control.getAllReports();
                         if (!reports.isEmpty()) {
                             System.out.println("List of Reports :");
-                            for (String repo : reports) {
+                            for (DAO.Reports repo : reports) {
                                 System.out.println(repo);
                             }
                         } else {
@@ -120,12 +127,11 @@ public class Adminview {
                         }
                         break;
                     }
-                    case 8:
-		    				{
-                                System.out.println("Exiting...");
-                                Mainview.main(null);
-                                break;
-		    				}
+                    case 8: {
+                        System.out.println("Exiting...");
+                        Mainview.main(null);
+                        break;
+                    }
                     default: {
                         System.out.println("Please Choose An Appropriate Option!!!");
                     }
