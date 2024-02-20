@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 import Controller.PatientController;
 
-public class Appointment {
+public class Appointments {
     private int Apid;
     private int pid;
     private String Problem;
@@ -44,27 +44,27 @@ public class Appointment {
     private int ChooseDoctor() {
         System.out.println("*** Choose Doctor Type According to your problem!! ***");
         System.out.print(
-                "\t**********************************************************************************************\n");
+                "\t----------------------------------------------------------------------------------------------\n");
         System.out.print(
-                "\t*                                                                                            *\n");
+                "\t|                                                                                            |\n");
         System.out.print(
-                "\t*                  1.Eyes_Specialist                                                         *\n");
+                "\t|                  1.Eyes_Specialist                                                         |\n");
         System.out.print(
-                "\t*                  2.EAR_Specialist                                                          *\n");
+                "\t|                  2.EAR_Specialist                                                          |\n");
         System.out.print(
-                "\t*                  3.Heart_Specialist                                                        *\n");
+                "\t|                  3.Heart_Specialist                                                        |\n");
         System.out.print(
-                "\t*                  4.Bones_Specialist                                                        *\n");
+                "\t|                  4.Bones_Specialist                                                        |\n");
         System.out.print(
-                "\t*                  5.Lungs_Specialist                                                        *\n");
+                "\t|                  5.Lungs_Specialist                                                        |\n");
         System.out.print(
-                "\t*                  6.Kidney_Specialist                                                       *\n");
+                "\t|                  6.Kidney_Specialist                                                       |\n");
         System.out.print(
-                "\t*                  7.General_Phsysicist                                                      *\n");
+                "\t|                  7.General_Physicist                                                       |\n");
         System.out.print(
-                "\t*                                                                                            *\n");
+                "\t|                                                                                            |\n");
         System.out.print(
-                "\t**********************************************************************************************\n");
+                "\t----------------------------------------------------------------------------------------------\n");
         int ch = sc.nextInt();
         switch (ch) {
             case 1: {
@@ -91,20 +91,20 @@ public class Appointment {
                 break;
             }
             case 7: {
-                Doctor_Type = "General Physicist";
+                Doctor_Type = "General";
             }
             default: {
                 return 0;
             }
         }
-        List<String> profile = pc.DoctorType(Doctor_Type);
+        List<DAO.Doctor> profile = pc.DoctorType(Doctor_Type);
         if (!profile.isEmpty()) {
-            System.out.println("Patient Profile:");
-            for (String pro : profile) {
+            System.out.println("Doctor Profile:");
+            for (DAO.Doctor pro : profile) {
                 System.out.println(pro);
             }
         } else {
-            System.out.println("No Patient profile found.");
+            System.out.println("No Doctor profile found.");
         }
         System.out.println("\t*** Enter the doctor-id which you want to choose ***");
         int choosedID = sc.nextInt();
@@ -113,7 +113,7 @@ public class Appointment {
     public String billpayment(int fee)
     {
         System.out.println("Doctor-Fees:" + fee);
-        System.out.println("*********************Credit Card details*****************");
+        System.out.println("------------------Credit Card Details-----------------------");
         String Status;
 		System.out.println("\t\tCARD-HOLDER Name: ");
 		String cardHolderName=sc.next();

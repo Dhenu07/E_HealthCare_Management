@@ -56,11 +56,26 @@ public class Feedback {
     }
 
     @Override
-    public String toString() {
-        return "Patient Id: " + patientID + "| " +
-               "Points: " + points + "| " +
-               "Doctor Nature: " + docNature + "| " +
-               "Location : " + location + "| " +
-               "Patient Comment: " + patientComment;
+public String toString() {
+    StringBuilder result = new StringBuilder();
+
+    if (patientID != 0) {
+        result.append("Patient Id: ").append(patientID).append("| ");
     }
+    if (points != 0) {
+        result.append("Points: ").append(points).append("| ");
+    }
+    if (docNature != null) {
+        result.append("Doctor Nature: ").append(docNature).append("| ");
+    }
+    if (location != null) {
+        result.append("Location: ").append(location).append("| ");
+    }
+    if (patientComment != null) {
+        result.append("Patient Comment: ").append(patientComment);
+    }
+
+    return result.toString();
+}
+
 }

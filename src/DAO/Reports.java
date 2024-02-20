@@ -8,7 +8,8 @@ public class Reports {
     private String medicinePre;
     private String docComment;
     private String pname;
-    public Reports(int reportId, int appointment, int patient, int doctor, String medicationPre, String docComment){
+
+    public Reports(int reportId, int appointment, int patient, int doctor, String medicationPre, String docComment) {
         setAppointmentID(appointment);
         setDocComment(docComment);
         setDoctorId(doctor);
@@ -16,18 +17,22 @@ public class Reports {
         setPatientId(patient);
         setReportId(reportId);
     }
-    public Reports(int reportId){
+
+    public Reports(int reportId) {
         setReportId(reportId);
     }
-    public Reports( String dname,String pname,String medicationPre, String docComment){
+
+    public Reports(String dname, String pname, String medicationPre, String docComment) {
         setDocComment(docComment);
         setMedicinePre(docComment);
         setDname(dname);
         setPname(pname);
     }
-    public Reports(int patientId ,String medicationPre){
+
+    public Reports(int patientId, String medicationPre) {
         setPatientId(patientId);
     }
+
     public void setReportId(int reportId) {
         this.reportId = reportId;
     }
@@ -75,27 +80,49 @@ public class Reports {
     public String getDocComment() {
         return docComment;
     }
+
     public String getPname() {
         return pname;
     }
+
     public void setPname(String pname) {
         this.pname = pname;
     }
+
     private String dname;
 
     public String getDname() {
         return dname;
     }
+
     public void setDname(String dname) {
         this.dname = dname;
     }
+
     @Override
     public String toString() {
-        return "Report ID: " + reportId + "| " +
-               "Appointment ID: " + appointmentID + "| " +
-               "Patient ID: " + patientId + "| " +
-               "LDoctor ID : " + doctorId + "| " +
-               "Medicine Prescribed: " + medicinePre+ "| " +
-               "Doctor Comment: " + docComment ;
+        StringBuilder result = new StringBuilder();
+
+        if (reportId != 0) {
+            result.append("Report ID: ").append(reportId).append("| ");
+        }
+        if (appointmentID != 0) {
+            result.append("Appointment ID: ").append(appointmentID).append("| ");
+        }
+        if (patientId != 0) {
+            result.append("Patient ID: ").append(patientId).append("| ");
+        }
+        if (doctorId != 0) {
+            result.append("Doctor ID: ").append(doctorId).append("| ");
+        }
+        if (medicinePre != null) {
+            result.append("Medicine Prescribed: ").append(medicinePre).append("| ");
+        }
+        if (docComment != null) {
+            result.append("Doctor Comment: ").append(docComment);
+        }
+
+        return result.toString();
     }
+
 }

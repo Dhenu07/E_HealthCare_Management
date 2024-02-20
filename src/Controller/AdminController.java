@@ -7,38 +7,49 @@ import DAO.Doctor;
 import DAO.Feedback;
 import DAO.Patient;
 import DAO.Reports;
-import Model.AdminModel;
+import Model.AppointmentDAO;
+import Model.DoctorDAO;
+import Model.FeedbackDAO;
+import Model.PatientDAO;
+import Model.ReportDAO;
 
 public class AdminController {
-    private AdminModel adminModel;
-
+    private DoctorDAO ddao;
+    private PatientDAO pdao;
+    private AppointmentDAO adao;
+    private FeedbackDAO feedback;
+    private ReportDAO reportDAO;
     public AdminController() {
-        this.adminModel = new AdminModel();
+        this.ddao = new DoctorDAO();
+        this.pdao = new PatientDAO();
+        this.adao = new AppointmentDAO();
+        this.feedback = new FeedbackDAO();
+        this.reportDAO = new ReportDAO();
     }
 
     public int addDoctor(String email, String password) {
-        return adminModel.addDoctor(password);
+        return ddao.addDoctor(password);
     }
 
     public List<Doctor> getAllDoctors() {
-        return adminModel.getAllDoctors();
+        return ddao.getAllDoctors();
     }
 
     public List<Patient> getAllPatients() {
-        return adminModel.getAllPatients();
+        return pdao.getAllPatients();
     }
 
     public boolean deleteDoctor(int id) {
-        return adminModel.deleteDoctor(id);
+        return ddao.deleteDoctor(id);
     }
     public List<Appointment> getAllAppointments() {
-        return adminModel.getAllAppointments();
+        return adao.getAllAppointments();
     }
 
     public List<Feedback> getAllFeedbacks() {
-        return adminModel.getAllFeedbacks();
+        return feedback.getAllFeedbacks();
     }
     public List<Reports> getAllReports(){
-        return adminModel.getAllReports();
+        return reportDAO.getAllReports();
     }
 }

@@ -9,7 +9,7 @@ public class Adminview {
     public static void viewAdmin() throws InterruptedException {
         @SuppressWarnings("resource")
         Scanner sc = new Scanner(System.in);
-        System.out.println("*****************Welcome to Admins portal***********************");
+        System.out.println("------------------Welcome Admin-------------------");
         String un;
         String pd;
         Doctor d = null;
@@ -22,25 +22,25 @@ public class Adminview {
                 || (un.compareTo("xyz") == 0 && pd.compareTo("1234") == 0)) {
             while (true) {
                 System.out.println(
-                        "\t**********************************************************************************************");
+                        "\t---------------------------------------------------------------------------------------------");
                 System.out.println(
-                        "\t*                  1.DoctorsList                                                             *");
+                        "\t|                  1.Doctor List                                                             |");
                 System.out.println(
-                        "\t*                  2.PatientsList.                                                           *");
+                        "\t|                  2.Patient List.                                                           |");
                 System.out.println(
-                        "\t*                  3.AddDoctor                                                               *");
+                        "\t|                  3.Add Doctor                                                              |");
                 System.out.println(
-                        "\t*                  4.RemoveDoctor                                                            *");
+                        "\t|                  4.Remove Doctor                                                           |");
                 System.out.println(
-                        "\t*                  5.AppointmentsDetail                                                      *");
+                        "\t|                  5.Appointment Details                                                     |");
                 System.out.println(
-                        "\t*                  6.ViewFeedbacks                                                           *");
+                        "\t|                  6.View Feedbacks                                                          |");
                 System.out.println(
-                        "\t*                  7.ViewReports                                                             *");
+                        "\t|                  7.View Reports                                                            |");
                 System.out.println(
-                        "\t*                  8.LOGOUT                                                                  *");
+                        "\t|                  8.Logout                                                                  |");
                 System.out.println(
-                        "\t**********************************************************************************************");
+                        "\t----------------------------------------------------------------------------------------------");
                 System.out.print("Select Your Option: ");
                 int ch = sc.nextInt();
                 System.out.println();
@@ -61,7 +61,7 @@ public class Adminview {
                         List<DAO.Patient> patients = control.getAllPatients();
                         if (!patients.isEmpty()) {
                             System.out.println("List of Patients :");
-                            for (DAO.Patient p: patients) {
+                            for (DAO.Patient p : patients) {
                                 System.out.println(p);
                             }
                         } else {
@@ -83,10 +83,9 @@ public class Adminview {
                     case 4: {
                         System.out.println("Enter Doctor Id to Delete : ");
                         int id = sc.nextInt();
-                        if(control.deleteDoctor(id)){
+                        if (control.deleteDoctor(id)) {
                             System.out.println("Doctor Deleted successfully!");
-                        }
-                        else{
+                        } else {
                             System.out.println("Some Error occurred");
                         }
                         break;

@@ -36,6 +36,12 @@ public class Appointment {
         setPaymentStatus(paymentStatus);
         setProblem(problem);
     }
+    public Appointment(int appointmentID,int patientID, int doctor_id,String problem){
+        setAppointmentID(appointmentID);
+        setDoctorID(doctor_id);
+        setPatientId(patientID);
+        setProblem(problem);
+    }
     public Appointment(int appointmentID,int patientID){
         setPatientId(patientID);
         setAppointmentID(appointmentID);
@@ -47,6 +53,10 @@ public class Appointment {
         setEntryCharge(DoctorFees);
         setPatientId(patientID);
         setProblem(problem);
+    }
+    public Appointment(int patientID,String appointmentStatus){
+        setAppointmentStatus(appointmentStatus);
+        setPatientId(patientID);
     }
 
     public void setAppointmentID(int appointmentID) {
@@ -130,19 +140,42 @@ public class Appointment {
     }
     @Override
     public String toString() {
-        return "Appointment ID: " + appointmentID + "| " +
-               "Problem: " + problem + "| " +
-               "Patient ID: " + patientId + "| " +
-               "Doctor ID: " + doctorID + "| " +
-               "Doctor Name: " + doctorname + "| " +
-               "Qualification: " + qualification + "| " +
-               "Doctor Type: " + doctortype + "| " +
-               "Payment Status: " + paymentStatus + "| " +
-               "Appointment Status: " + appointmentStatus + "| " +
-               "Entry Charge: " + entry_charge;
+        StringBuilder result = new StringBuilder();
+    
+        if (appointmentID != 0) {
+            result.append("Appointment ID: ").append(appointmentID).append("| ");
+        }
+        if (problem != null) {
+            result.append("Problem: ").append(problem).append("| ");
+        }
+        if (patientId != 0) {
+            result.append("Patient ID: ").append(patientId).append("| ");
+        }
+        if (doctorID != 0) {
+            result.append("Doctor ID: ").append(doctorID).append("| ");
+        }
+        if (doctorname != null) {
+            result.append("Doctorname: ").append(doctorname).append("| ");
+        }
+        if (qualification != null) {
+            result.append("Qualification: ").append(qualification).append("| ");
+        }
+        if (doctortype != null) {
+            result.append("Doctortype: ").append(doctortype).append("| ");
+        }
+        if (paymentStatus != null) {
+            result.append("PaymentStatus: ").append(paymentStatus).append("| ");
+        }
+        if (appointmentStatus != null) {
+            result.append("AppointmentStatus: ").append(appointmentStatus).append("| ");
+        }
+        if (entry_charge != 0) {
+            result.append("EntryCharge: ").append(entry_charge).append("| ");
+        }
+        if (result.length() > 0) {
+            result.deleteCharAt(result.length() - 1);
+        }
+        return result.toString();
     }
     
-    
-    
-
 }

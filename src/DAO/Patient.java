@@ -100,18 +100,39 @@ public class Patient {
     public String getEmail_Id() {
         return email_id;
     }
-
     @Override
     public String toString() {
-        return "Patient ID: " + patientID + "| " +
-               "First Name: " + first_Name + "| " +
-               "Last Name: " + last_Name + "| " +
-               "Gender : " + gender + "| " +
-               "Contact Number: " + contact_number + "| " +
-               "Age: " + age + "| " +
-               "Blood Group: " + blood_group + "| " +
-               "Address : " + address + "| " +
-               "Email : " + email_id;
+        StringBuilder result = new StringBuilder();
+    
+        if (patientID != 0) {
+            result.append("Patient ID: ").append(patientID).append("| ");
+        }
+        if (first_Name != null) {
+            result.append("First Name: ").append(first_Name).append("| ");
+        }
+        if (last_Name != null) {
+            result.append("Last Name: ").append(last_Name).append("| ");
+        }
+        if (gender != null) {
+            result.append("Gender: ").append(gender).append("| ");
+        }
+        if (contact_number != null) {
+            result.append("Contact Number: ").append(contact_number).append("| ");
+        }
+        if (age != 0) {
+            result.append("Age: ").append(age).append("| ");
+        }
+        if (blood_group != null) {
+            result.append("Blood Group: ").append(blood_group).append("| ");
+        }
+        if (address != null) {
+            result.append("Address: ").append(address).append("| ");
+        }
+        if (email_id != null) {
+            result.append("Email: ").append(email_id);
+        }
+    
+        return result.toString();
     }
-
+    
 }

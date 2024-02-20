@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.util.*;
 
 import Controller.PatientController;
+import DAO.Appointment;
 
 public class Patientview {
     public static void viewPatient() throws InterruptedException {
@@ -12,7 +13,7 @@ public class Patientview {
         Patients p = new Patients();
         Scanner sc = new Scanner(System.in);
         boolean checkPatient = false;
-        System.out.println("*****************Welcome to patient portal***********************");
+        System.out.println("------------------------Welcome Patient-------------------------");
         int id;
         String pd;
         System.out.print("ID:");
@@ -24,25 +25,23 @@ public class Patientview {
             p = new Patients();
             while (true) {
                 System.out.print(
-                        "\t**********************************************************************************************\n");
+                        "\t----------------------------------------------------------------------------------------------\n");
                 System.out.print(
-                        "\t*                  1.ViewProfile                                                             *\n");
+                        "\t|                  1.ViewProfile                                                             |\n");
                 System.out.print(
-                        "\t*                  2.viewDoctors                                                             *\n");
+                        "\t|                  2.viewDoctors                                                             |\n");
                 System.out.print(
-                        "\t*                  3.BookAppointments                                                        *\n");
+                        "\t|                  3.BookAppointments                                                        |\n");
                 System.out.print(
-                        "\t*                  4.ViewReport                                                              *\n");
+                        "\t|                  4.ViewReport                                                              |\n");
                 System.out.print(
-                        "\t*                  5.viewAppointments Pending                                                        *\n");
+                        "\t|                  5.viewAppointments Pending                                                |\n");
                 System.out.print(
-                        "\t*                  6.viewCompletedAppointments                                               *\n");
+                        "\t|                  6.Give FeedBack                                                           |\n");
                 System.out.print(
-                        "\t*                  7.Give FeedBack                                                           *\n");
+                        "\t|                  7.LOGOUT                                                                  |\n");
                 System.out.print(
-                        "\t*                  8.LOGOUT                                                                  *\n");
-                System.out.print(
-                        "\t**********************************************************************************************\n");
+                        "\t-----------------------------------------------------------------------------------------------\n");
                 System.out.println("Enter your choice- ");
                 int ch = sc.nextInt();
                 switch (ch) {
@@ -89,10 +88,10 @@ public class Patientview {
                     case 5: {
                         String appoo = "Pending";
                         int t = 0;
-                        List<String> viewapp = pc.viewAppo(id, appoo);
+                        List<DAO.Appointment> viewapp = pc.viewAppo(id, appoo);
                         if (!viewapp.isEmpty()) {
                             System.out.println("Appointments :");
-                            for (String ap : viewapp) {
+                            for (DAO.Appointment ap : viewapp) {
                                 t++;
                                 System.out.println("*** APPOINTMENT - NUMBER : " + t);
                                 System.out.println(ap);
@@ -102,23 +101,7 @@ public class Patientview {
                         }
                         break;
                     }
-                    case 6: {
-                        String appoo = "Completed";
-                        int t = 0;
-                        List<String> viewapp = pc.viewAppo(id, appoo);
-                        if (!viewapp.isEmpty()) {
-                            System.out.println("Appointments :");
-                            for (String ap : viewapp) {
-                                t++;
-                                System.out.println("*** APPOINTMENT - NUMBER : " + t);
-                                System.out.println(ap);
-                            }
-                        } else {
-                            System.out.println("No Appointments found.");
-                        }
-                        break;
-                    }
-                    case 7:
+                    case 6:
                     {
                         System.out.println("*********Please Fill The Following Feedback Form*********");
                         int pid=id;
@@ -144,7 +127,7 @@ public class Patientview {
                         }
                         break;
                     }
-                    case 8: {
+                    case 7: {
                         System.out.println("Exiting...");
                         Mainview.main(null);
                         break;
@@ -214,7 +197,7 @@ class Patients extends Person {
     }
 
     public void BookAppointment(int id) {
-        Appointment ap = new Appointment();
+        Appointments ap = new Appointments();
         ap.BookAppointment(id);
     }
 }

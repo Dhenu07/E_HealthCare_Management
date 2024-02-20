@@ -24,6 +24,17 @@ public class Doctor {
         setDoctorType(doctor_type);
         setEmailId(email_id);
     }
+    public Doctor(int doctorID, String first_Name, String last_Name, int age, String doctor_Type,String qualification, String email_id, String contact_number){
+        setContactNumber(contact_number);
+        setDoctorId(doctorID);
+        setEmailId(email_id);
+        setDoctorType(doctor_Type);
+        setFirstName(first_Name);
+        setLastName(last_Name);
+        setAge(age);
+        setQualification(qualification);
+        
+    }
     public Doctor(String first_Name,int age,String doctor_type,String qualification){
         setFirstName(first_Name);
         setAge(age);
@@ -33,7 +44,16 @@ public class Doctor {
     public Doctor(String First_Name){
         setFirstName(First_Name);
     }
-
+    public Doctor(String doctor_type,String first_Name){
+        setDoctorType(doctor_type);
+    }
+    public Doctor(int doctor_id,String first_Name,int entry_charge,String emailid,String qualification){
+        setDoctorId(doctor_id);
+        setFirstName(first_Name);
+        setEntry(doctor_id);
+        setEmailId(emailid);
+        setQualification(qualification);
+    }
     public void setDoctorId(int doctorID) {
         this.doctorID = doctorID;
     }
@@ -116,15 +136,40 @@ public class Doctor {
     
     @Override
     public String toString() {
-        return "Doctor ID: " + doctorID + "| " +
-               "First Name: " + first_Name + "| " +
-               "Last Name: " + last_Name + "| " +
-               "Gender : " + gender + "| " +
-               "Contact Number: " + contact_number + "| " +
-               "Age: " + age + "| " +
-               "Entry Fee: " + entry_charge + "| " +
-               " Qualification : " + qualification + "| " +
-               "Doctor Type: " + doctor_type + "| " +
-               "Email : " + email_id;
+        StringBuilder result = new StringBuilder();
+    
+        if (doctorID != 0) {
+            result.append("Doctor ID: ").append(doctorID).append("| ");
+        }
+        if (first_Name != null) {
+            result.append("First Name: ").append(first_Name).append("| ");
+        }
+        if (last_Name != null) {
+            result.append("Last Name: ").append(last_Name).append("| ");
+        }
+        if (gender != null) {
+            result.append("Gender: ").append(gender).append("| ");
+        }
+        if (contact_number != null) {
+            result.append("Contact Number: ").append(contact_number).append("| ");
+        }
+        if (age != 0) {
+            result.append("Age: ").append(age).append("| ");
+        }
+        if (entry_charge != 0) {
+            result.append("Entry Fee: ").append(entry_charge).append("| ");
+        }
+        if (qualification != null) {
+            result.append("Qualification: ").append(qualification).append("| ");
+        }
+        if (doctor_type != null) {
+            result.append("Doctor Type: ").append(doctor_type).append("| ");
+        }
+        if (email_id != null) {
+            result.append("Email: ").append(email_id);
+        }
+    
+        return result.toString();
     }
+    
 }

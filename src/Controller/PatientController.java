@@ -2,75 +2,93 @@ package Controller;
 
 import java.util.List;
 
+import DAO.Appointment;
 import DAO.Doctor;
 import DAO.Patient;
 import DAO.Reports;
-import Model.PatientModel;
+import Model.AppointmentDAO;
+import Model.DoctorDAO;
+import Model.FeedbackDAO;
+import Model.PatientDAO;
+import Model.ReportDAO;
+import Model.UserDAO;
 
 public class PatientController {
-    private PatientModel pm = new PatientModel();
-
+    private UserDAO userDAO;
+    private PatientDAO pao;
+    private DoctorDAO doctorDAO;
+    private AppointmentDAO apd;
+    private ReportDAO re;
+    private FeedbackDAO fd;
+    public PatientController(){
+        this.userDAO = new UserDAO();
+        this.pao = new PatientDAO();
+        this.doctorDAO = new DoctorDAO();
+        this.apd = new AppointmentDAO();
+        this.re =new ReportDAO();
+        this.fd = new FeedbackDAO();
+    }
     public int AutoPatientID() {
-        return pm.AutopatientId();
+        return userDAO.AutopatientId();
     }
 
     public boolean register(int pid, String pass) {
-        return pm.register(pid, pass);
+        return userDAO.register(pid, pass);
     }
 
     public boolean patient_Registration(int pid, String fn, String ln, String G, String cn, int age, String Eid,
             String BloodGroup, String Address) {
-        return pm.patient_Registration(pid, fn, ln, G, cn, age, Eid, BloodGroup, Address);
+        return pao.patient_Registration(pid, fn, ln, G, cn, age, Eid, BloodGroup, Address);
     }
 
     public boolean checkPatient(int pid, String pass) {
-        return pm.checkPatient(pid, pass);
+        return pao.checkPatient(pid, pass);
     }
 
     public List<Patient> ShowPatientDetails(int id) {
-        return pm.getProfile(id);
+        return pao.getProfile(id);
     }
 
     public List<Doctor> getAllDoctors() {
-        return pm.getAllDoctors();
+        return doctorDAO.getAllDoctor();
     }
 
     public int AutoAppointmentID() {
-        return pm.AutoAppo();
+        return apd.AutoAppo();
     }
 
-    public List<String> DoctorType(String doc) {
-        return pm.getDoctorType(doc);
+    public List<Doctor> DoctorType(String doc) {
+        return doctorDAO.getDoctorType(doc);
     }
 
     public String GetDoctorName(int did) {
-        return pm.getDoctorName(did);
+        return doctorDAO.getDoctorName(did);
     }
 
     public int GetDoctorFees(int did) {
-        return pm.getDoctorFees(did);
+        return doctorDAO.getDoctorFees(did);
     }
 
     public String GetDoctorQualification(int did) {
-        return pm.getDoctorQualification(did);
+        return doctorDAO.getDoctorQualification(did);
     }
 
     public boolean CheckAppointment(int Apid, String Problem, int pid,  int docFees, String payment_status,
             String Appointment_Status) {
-        return pm.CheckAppointment(Apid, Problem, pid, 
+        return apd.CheckAppointment(Apid, Problem, pid, 
                 docFees, payment_status, Appointment_Status);
     }
 
     public List<Reports> getAllReports(int id) {
-        return pm.getAllReports(id);
+        return re.getAllReports(id);
     }
 
-    public List<String> viewAppo(int id, String appoo) {
-        return pm.viewAppo(id, appoo);
+    public List<Appointment> viewAppo(int id, String appoo) {
+        return apd.viewAppo(id, appoo);
     }
 
     public boolean updateFeedback(int id, int points, String Doc_Nature, String Location, String YourComment) {
-        return pm.updateFeedback(id,
+        return fd.updateFeedback(id,
                 points, Doc_Nature, Location, YourComment);
     }
 }
