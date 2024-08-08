@@ -1,5 +1,7 @@
 package DAO;
 
+import java.sql.Timestamp;
+
 public class Appointment {
     private int appointmentID;
     private String problem;
@@ -7,24 +9,37 @@ public class Appointment {
     private int doctorID;
     private String paymentStatus;
     private String appointmentStatus;
-    private String doctorname;
+    private String doctorName;
     private String qualification;
-    private String doctortype;
-    private int entry_charge;
+    private String doctorType;
+    private int entryCharge;
+    private Timestamp appointmentTime;
 
-    public Appointment(int appointmentID, String problem, int patientId, int doctorID,String doctorname,  String qualification,int entry_charge,String doctortype,String paymentStatus, String appointmentStatus ) {
+    // public Appointment(int appointmentID, String problem, int patientId, int doctorID,String doctorname,  String qualification,int entry_charge,String doctortype,String paymentStatus, String appointmentStatus ) {
+    //     setAppointmentID(appointmentID);
+    //     setProblem(problem);
+    //     setPatientId(patientId);
+    //     setDoctorID(doctorID);
+    //     setPaymentStatus(paymentStatus);
+    //     setAppointmentStatus(appointmentStatus);
+    //     setDoctorName(doctorname);
+    //     setQualification(qualification);
+    //     setDoctorType(doctortype);
+    //     setEntryCharge(entry_charge);
+    // }
+    public Appointment(int appointmentID, String problem, int patientId, int doctorID, String doctorName, String qualification, int entryCharge, String doctorType, String paymentStatus, String appointmentStatus, Timestamp appointmentTime) {
         setAppointmentID(appointmentID);
         setProblem(problem);
         setPatientId(patientId);
         setDoctorID(doctorID);
         setPaymentStatus(paymentStatus);
         setAppointmentStatus(appointmentStatus);
-        setDoctorName(doctorname);
+        setDoctorName(doctorName);
         setQualification(qualification);
-        setDoctorType(doctortype);
-        setEntryCharge(entry_charge);
+        setDoctorType(doctorType);
+        setEntryCharge(entryCharge);
+        setAppointmentTime(appointmentTime);
     }
-
     public Appointment(int doctorID){
         setDoctorID(doctorID);
     }
@@ -59,6 +74,13 @@ public class Appointment {
         setPatientId(patientID);
     }
 
+    public Timestamp getAppointmentTime() {
+        return appointmentTime;
+    }
+
+    public void setAppointmentTime(Timestamp appointmentTime) {
+        this.appointmentTime = appointmentTime;
+    }
     public void setAppointmentID(int appointmentID) {
         this.appointmentID = appointmentID;
     }
@@ -108,11 +130,11 @@ public class Appointment {
     }
 
     public void setDoctorName(String doctorName) {
-        this.doctorname = doctorName;
+        this.doctorName = doctorName;
     }
 
     public String getDoctorName() {
-        return doctorname;
+        return doctorName;
     }
 
     public void setQualification(String qualification) {
@@ -124,24 +146,25 @@ public class Appointment {
     }
 
     public void setDoctorType(String doctorType) {
-        this.doctortype = doctorType;
+        this.doctorType = doctorType;
     }
 
     public String getDoctorType() {
-        return doctortype;
+        return doctorType;
     }
 
     public void setEntryCharge(int entryCharge) {
-        this.entry_charge = entryCharge;
+        this.entryCharge = entryCharge;
     }
 
     public int getEntryCharge() {
-        return entry_charge;
+        return entryCharge;
     }
     @Override
     public String toString() {
+        // Add appointmentTime to the toString method
         StringBuilder result = new StringBuilder();
-    
+
         if (appointmentID != 0) {
             result.append("Appointment ID: ").append(appointmentID).append("| ");
         }
@@ -154,23 +177,26 @@ public class Appointment {
         if (doctorID != 0) {
             result.append("Doctor ID: ").append(doctorID).append("| ");
         }
-        if (doctorname != null) {
-            result.append("Doctorname: ").append(doctorname).append("| ");
+        if (doctorName != null) {
+            result.append("Doctor Name: ").append(doctorName).append("| ");
         }
         if (qualification != null) {
             result.append("Qualification: ").append(qualification).append("| ");
         }
-        if (doctortype != null) {
-            result.append("Doctortype: ").append(doctortype).append("| ");
+        if (doctorType != null) {
+            result.append("Doctor Type: ").append(doctorType).append("| ");
         }
         if (paymentStatus != null) {
-            result.append("PaymentStatus: ").append(paymentStatus).append("| ");
+            result.append("Payment Status: ").append(paymentStatus).append("| ");
         }
         if (appointmentStatus != null) {
-            result.append("AppointmentStatus: ").append(appointmentStatus).append("| ");
+            result.append("Appointment Status: ").append(appointmentStatus).append("| ");
         }
-        if (entry_charge != 0) {
-            result.append("EntryCharge: ").append(entry_charge).append("| ");
+        if (entryCharge != 0) {
+            result.append("Entry Charge: ").append(entryCharge).append("| ");
+        }
+        if (appointmentTime != null) {
+            result.append("Appointment Time: ").append(appointmentTime).append("| ");
         }
         if (result.length() > 0) {
             result.deleteCharAt(result.length() - 1);

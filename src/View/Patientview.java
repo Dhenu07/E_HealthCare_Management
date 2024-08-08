@@ -198,6 +198,6 @@ class Patients extends Person {
 
     public void BookAppointment(int id) {
         Appointments ap = new Appointments();
-        ap.BookAppointment(id);
+        ap.bookAppointment(id);
     }
 }

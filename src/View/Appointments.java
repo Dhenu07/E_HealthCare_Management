@@ -1,10 +1,15 @@
 package View;
+
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
 import Controller.PatientController;
 
 public class Appointments {
+
     private int Apid;
     private int pid;
     private String Problem;
@@ -15,10 +20,11 @@ public class Appointments {
     private int docFees;
     private String Appointment_Status = "Pending";
     private String payment_status;
-    Scanner sc = new Scanner(System.in);
-    PatientController pc = new PatientController();
+    private Timestamp appointmentTime;
+    private Scanner sc = new Scanner(System.in);
+    private PatientController pc = new PatientController();
 
-    public void BookAppointment(int id) {
+    public void bookAppointment(int id) {
         Apid = pc.AutoAppointmentID();
         System.out.println("Appointment ID:" + Apid);
         pid = id;
@@ -33,6 +39,22 @@ public class Appointments {
         Doctor_Name = pc.GetDoctorName(Doctor_id);
         docFees = pc.GetDoctorFees(Doctor_id);
         Doctor_Qualification = pc.GetDoctorQualification(Doctor_id);
+        List<String> availableSlots = pc.getAvailableSlots(Doctor_id, new Date());
+        if (availableSlots.isEmpty()) {
+            System.out.println("No available slots for today.");
+            return;
+        }
+        System.out.println("Available slots: " + availableSlots);
+        System.out.println("Choose a slot from above:");
+        String selectedTime = sc.next();
+        String dateTime = new SimpleDateFormat("yyyy-MM-dd").format(new Date()) + " " + selectedTime;
+        try {
+            appointmentTime = Timestamp.valueOf(dateTime);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Invalid slot chosen.");
+            return;
+        }
+
         int d;
         System.out.println("\t** Enter 1 to confirm **");
         d = sc.nextInt();
@@ -110,41 +132,38 @@ public class Appointments {
         int choosedID = sc.nextInt();
         return choosedID;
     }
-    public String billpayment(int fee)
-    {
-        System.out.println("Doctor-Fees:" + fee);
+
+    public String billPayment(int fee) {
+        System.out.println("Doctor Fees: " + fee);
         System.out.println("------------------Credit Card Details-----------------------");
         String Status;
-		System.out.println("\t\tCARD-HOLDER Name: ");
-		String cardHolderName=sc.next();
-		System.out.println("\t\tCARD-NUMBER : ");
-		String card_no=sc.next();
-		System.out.println("\t\tEXPIRY DATE : ");
-		String ExpiryDate=sc.next();
-		System.out.println("\t\tCVC number: ");
-		int cvc=sc.nextInt();
-		System.out.println("Please Enter 1 to confirm Payment---");
-		int x=sc.nextInt();
-		if(x==1)
-		{
-			System.out.println("Your Payment is confirmed");
-			return "Payed";
-		}
-		else
-		{
-			System.out.println("Your Payment is cancelled,and Appointments Not yet Confirmed");
-			return "NotPayed";
-		}
+        System.out.println("\t\tCARD-HOLDER Name: ");
+        String cardHolderName = sc.next();
+        System.out.println("\t\tCARD-NUMBER : ");
+        String card_no = sc.next();
+        System.out.println("\t\tEXPIRY DATE : ");
+        String ExpiryDate = sc.next();
+        System.out.println("\t\tCVC number: ");
+        int cvc = sc.nextInt();
+        System.out.println("Please Enter 1 to confirm Payment---");
+        int x = sc.nextInt();
+        if (x == 1) {
+            System.out.println("Your Payment is confirmed");
+            return "Payed";
+        } else {
+            System.out.println("Your Payment is cancelled, and Appointments Not yet Confirmed");
+            return "NotPayed";
+        }
     }
 
-    public void ConfirmAppointment(){
-        payment_status = billpayment(docFees);
-        boolean confirm=pc.CheckAppointment(Apid,Problem,pid,Doctor_id,payment_status,Appointment_Status);
-        if(confirm){
-            System.out.println("ThankYou For visiting us your Appointment Has Been confirmed!!!");
-        }
-        else{
+    public void ConfirmAppointment() {
+        payment_status = billPayment(docFees);
+        boolean confirm = pc.bookAppointment(Apid, Problem, pid, Doctor_id, payment_status, Appointment_Status, appointmentTime);
+        if (confirm) {
+            System.out.println("Thank you for visiting us! Your Appointment Has Been Confirmed!!!");
+        } else {
             System.out.println("Appointment Cancelled");
         }
-
-    }}
+    }
+    
+}
