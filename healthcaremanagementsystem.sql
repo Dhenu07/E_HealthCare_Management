@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 11, 2024 at 06:28 PM
+-- Generation Time: Aug 08, 2024 at 08:10 AM
 -- Server version: 8.0.32
 -- PHP Version: 8.1.10
 
@@ -31,23 +31,27 @@ CREATE TABLE `appointments` (
   `AppointmentID` int NOT NULL,
   `Problem` varchar(50) DEFAULT NULL,
   `PatientId` int DEFAULT NULL,
-  `DoctorName` varchar(20) DEFAULT NULL,
   `DoctorID` int DEFAULT NULL,
-  `DoctorType` varchar(20) DEFAULT NULL,
-  `Qualification` varchar(20) DEFAULT NULL,
-  `DoctorFees` int DEFAULT NULL,
   `PaymentStatus` varchar(33) DEFAULT NULL,
-  `Appointment_Status` varchar(30) DEFAULT NULL
+  `Appointment_Status` varchar(30) DEFAULT NULL,
+  `appointment_time` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `appointments`
 --
 
-INSERT INTO `appointments` (`AppointmentID`, `Problem`, `PatientId`, `DoctorName`, `DoctorID`, `DoctorType`, `Qualification`, `DoctorFees`, `PaymentStatus`, `Appointment_Status`) VALUES
-(1, 'I had a vision problem', 22, 'Dhenu', 21, 'Eye', 'Mbbs', 200, 'Payed', 'Completed'),
-(2, 'Breathing issues', 22, 'Kishor', 25, 'Lungs', 'Mbbs', 1500, 'Payed', 'Completed'),
-(3, 'Eye Problem', 26, 'Dhenu', 21, 'Eyes', 'Mbbs', 200, 'Payed', 'Pending');
+INSERT INTO `appointments` (`AppointmentID`, `Problem`, `PatientId`, `DoctorID`, `PaymentStatus`, `Appointment_Status`, `appointment_time`) VALUES
+(1, 'I had a vision problem', 22, 21, 'Payed', 'Completed', NULL),
+(2, 'Breathing issues', 22, 25, 'Payed', 'Completed', NULL),
+(3, 'Eye Problem', 26, 21, 'Payed', 'Completed', NULL),
+(4, 'Kidney pain', 26, 26, 'Payed', 'Completed', NULL),
+(5, 'fever', 26, 21, 'Payed', 'Completed', NULL),
+(6, 'fever', 26, 21, 'Payed', 'Completed', NULL),
+(7, 'cold', 28, 26, 'Payed', 'Pending', NULL),
+(8, 'Eye pro', 28, 21, 'Payed', 'Pending', NULL),
+(9, 'Eye Iritation', 26, 21, 'Payed', 'Pending', '2024-08-08 09:00:00'),
+(10, 'Hand Pain', 26, 26, 'Payed', 'Pending', '2024-08-08 10:00:00');
 
 -- --------------------------------------------------------
 
@@ -74,7 +78,11 @@ CREATE TABLE `doctors` (
 
 INSERT INTO `doctors` (`DoctorID`, `First_Name`, `Last_Name`, `Gender`, `ContactNumber`, `Age`, `Entry_Charge`, `Qualification`, `Doctor_Type`, `Email_Id`) VALUES
 (21, 'Dhenu', 'DS', 'M', '9677842990', 25, 200, 'Mbbs', 'Eyes', 'dhenuds2003@gmail.com'),
-(25, 'Kishore', 'P K', 'M', '9898989898', 22, 1500, 'MBBS', 'Lungs', 'kishorepk@gmail.com');
+(25, 'Kishore', 'P K', 'M', '9898989898', 22, 1500, 'MBBS', 'Lungs', 'kishorepk@gmail.com'),
+(26, 'Maaran', 'C T', 'M', '989898797', 20, 7000, 'mbbs,md', 'Kidney', 'maara@gmail.com'),
+(27, 'Harsha', 'Vyas', 'M', '7373736095', 26, 1500, 'Mbbs', 'General', 'harshvardhan@gmail.com'),
+(28, 'Kavi', 'R', 'M', '898989763', 25, 1000, 'Mbbs', 'Bone', 'kavi@gmail.com'),
+(29, 'Guru Dev', 'Singh', 'M', '8674934724', 25, 1000, 'MBBS,MS', 'Heart', 'gurudev@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -95,7 +103,9 @@ CREATE TABLE `feedback` (
 --
 
 INSERT INTO `feedback` (`PatientID`, `Points`, `Doc_Nature`, `Location`, `PatientComment`) VALUES
-(22, 8, 'Good', 'Tup', 'Good');
+(22, 8, 'Good', 'Tup', 'Good'),
+(26, 10, 'Eye', 'Cbe', 'Great'),
+(28, 10, 'Good', 'cbe', 'Good');
 
 -- --------------------------------------------------------
 
@@ -121,7 +131,9 @@ CREATE TABLE `patients` (
 
 INSERT INTO `patients` (`PatientID`, `First_Name`, `Last_Name`, `Gender`, `ContactNumber`, `Age`, `EmailID`, `BloodGroup`, `Address`) VALUES
 (22, 'Anirudh', 'RK', 'M', '7878787896', 23, 'ani@gmail.com', 'b+', 'mum'),
-(26, 'Divesh', 'S', 'M', '9867676758', 22, 'diveshdivesh@gmail.com', 'AB+', '34/3 cross Street,Nerhu nagar,mettupalayam');
+(26, 'Divesh', 'S', 'M', '9867676758', 22, 'diveshdivesh@gmail.com', 'AB+', '34/3 cross Street,Nerhu nagar,mettupalayam'),
+(27, 'vanji', 'abc', 'm', '8989898989', 20, 'vanji@gmail.com', 'b+ve', '12nfndfn'),
+(28, 'R', '898989567', 'M', 'O+', 20, 'dhanar@gmail.com', 'M', '34/23 Cbe');
 
 -- --------------------------------------------------------
 
@@ -144,7 +156,11 @@ CREATE TABLE `reports` (
 
 INSERT INTO `reports` (`ReportID`, `appointmentID`, `patientID`, `DoctorID`, `MedicinePrescribed`, `DoctorComment`) VALUES
 (1, 1, 22, 21, 'Drink carrot juice daily and dont use mobile', 'take tablet123'),
-(2, 2, 22, 25, 'dfefrf', 'erfeer');
+(2, 2, 22, 25, 'dfefrf', 'erfeer'),
+(3, 4, 26, 26, 'abc', 'nothijng'),
+(4, 3, 26, 21, 'dolo', 'no'),
+(5, 5, 26, 21, 'Dolo150', 'Take rest'),
+(6, 6, 26, 21, 'Dolo', 'Nothing');
 
 -- --------------------------------------------------------
 
@@ -207,7 +223,13 @@ INSERT INTO `users` (`userID`, `userType`, `Password`) VALUES
 (23, 'Doctor', 'maaran123'),
 (24, 'Doctor', 'kishore123'),
 (25, 'Doctor', 'kishore123'),
-(26, 'Patient', 'comeonbro');
+(26, 'Doctor', 'maara'),
+(26, 'Patient', 'comeonbro'),
+(27, 'Doctor', 'harsh'),
+(27, 'Patient', '12345'),
+(28, 'Doctor', 'kavi'),
+(28, 'Patient', 'iamhere'),
+(29, 'Doctor', 'Guru');
 
 --
 -- Indexes for dumped tables
